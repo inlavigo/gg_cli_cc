@@ -9,15 +9,8 @@
       "name": "Run aud",
       "type": "dart",
       "request": "launch",
-      "program": "aud_cli/bin/aud.dart",
-      "args": [
-        "createDartPackage",
-        "-n",
-        "aud_test",
-        "-d",
-        "Manages colors of Audanika's AbSpace, i.e. key colors, chord type overlays etc",
-        "--force"
-      ],
+      "program": "aud_cli_gc/bin/aud_cli_generate_code.dart",
+      "args": ["gc", "class"],
       "cwd": "${workspaceFolder}/.."
     },
     {

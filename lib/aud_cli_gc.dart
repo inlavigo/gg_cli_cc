@@ -3,6 +3,6 @@
 /// More dartdocs go here.
 library;
 
-export 'src/aud_cli_gc_base.dart';
+export 'src/generate_code.dart';
 
 // TODO: Export any libraries intended for clients of this package.
