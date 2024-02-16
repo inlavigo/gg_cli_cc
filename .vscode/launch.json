@@ -6,14 +6,6 @@
 
   "configurations": [
     {
-      "name": "Run aud",
-      "type": "dart",
-      "request": "launch",
-      "program": "aud_cli_gc/bin/aud_cli_generate_code.dart",
-      "args": ["gc", "class"],
-      "cwd": "${workspaceFolder}/.."
-    },
-    {
       "name": "Test Current File",
       "type": "dart",
       "request": "launch",

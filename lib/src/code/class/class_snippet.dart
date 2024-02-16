@@ -13,10 +13,10 @@ class $className {
   const $className();
 
   /// First example function
-  bool foo0(bool b) => b;
+  // bool foo0(bool b) => b;
 
   /// Second example function
-  bool foo1(bool b) => b;
+  // bool foo1(bool b) => b;
 
   /// Example instance for test purposes
   static const example = $className();

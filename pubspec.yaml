@@ -1,7 +1,7 @@
-name: aud_cli_gc
+name: gg_cli_cc
 description: Audanika Developer Command Line - Generate Code With Ease, e.g. Classes
 version: 1.0.0
-repository: https://github.com/inlavigo/aud_cli_gc
+repository: https://github.com/inlavigo/gg_cli_cc
 
 environment:
   sdk: ^3.4.0-120.0.dev
@@ -10,7 +10,6 @@ dependencies:
   args: ^2.4.2
   colorize: ^3.0.0
   path: ^1.6.4
-  super_string: ^1.0.3
   dart_style: ^2.3.4
   recase: ^4.1.0
 
@@ -20,3 +19,5 @@ dev_dependencies:
   pana: ^0.22.0
   test: ^1.24.0
   yaml: ^3.1.2
+  gg:
+    git: https://github.com/inlavigo/gg.git

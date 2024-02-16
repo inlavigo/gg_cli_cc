@@ -5,7 +5,7 @@
 // found in the LICENSE file in the root of this package.
 
 import 'package:args/command_runner.dart';
-import 'package:aud_cli_gc/src/code/code.dart';
+import 'package:gg_cli_cc/src/code/code.dart';
 
 /// Generates code
 class GenerateCode extends Command<dynamic> {
@@ -17,10 +17,10 @@ class GenerateCode extends Command<dynamic> {
   }
 
   @override
-  final name = 'gc';
+  final name = 'cc';
 
   @override
-  final description = 'Generate code.';
+  final description = 'Create code.';
 
   // ...........................................................................
   /// The log function

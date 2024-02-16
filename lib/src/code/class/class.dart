@@ -7,10 +7,9 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:aud_cli_gc/src/code/class/class_snippet.dart';
-import 'package:aud_cli_gc/src/code/class/class_test_snippet.dart';
-import 'package:aud_cli_gc/src/code/snippets/file_header.dart';
-import 'package:aud_cli_gc/src/tools/string_tools.dart';
+import 'package:gg_cli_cc/src/code/class/class_snippet.dart';
+import 'package:gg_cli_cc/src/code/class/class_test_snippet.dart';
+import 'package:gg_cli_cc/src/code/snippets/file_header.dart';
 import 'package:path/path.dart';
 import 'package:recase/recase.dart';
 import 'package:dart_style/dart_style.dart';
@@ -33,13 +32,13 @@ class Class extends Command<dynamic> {
   final name = 'class';
 
   @override
-  final description = 'Generates a class and tests.';
+  final description = 'Generates a class and associated tests.';
 
   @override
   void run() {
     var className = argResults?['name'] as String;
     className = className.camelCase;
-    className = className.firstLetterUpperCase;
+    className = className.pascalCase;
 
     _Class(
       log: log,
@@ -161,7 +160,11 @@ class _Class {
     );
 
     // Format code
-    code = _formatter.format(code);
+    try {
+      code = _formatter.format(code);
+    } catch (e) {
+      log('Error formatting test file: $e'); // coverage:ignore-line
+    }
 
     // Create test directory when not exists
     if (!Directory(_testDir).existsSync()) {

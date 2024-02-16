@@ -6,7 +6,7 @@
 // found in the LICENSE file in the root of this package.
 
 import 'package:args/command_runner.dart';
-import 'package:aud_cli_gc/aud_cli_gc.dart';
+import 'package:gg_cli_cc/gg_cli_cc.dart';
 import 'package:colorize/colorize.dart';
 
 // #############################################################################
@@ -14,7 +14,7 @@ Future<void> generateCode(List<String> arguments) async {
   try {
     final r = CommandRunner<dynamic>(
       'aud',
-      'Our cli to manage many tasks about audanika software development.',
+      'Our cli to create various kind of code snippets.',
     )..addCommand(GenerateCode(log: print));
 
     await r.run(arguments);
