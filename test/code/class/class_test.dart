@@ -73,136 +73,134 @@ void main() {
   group('Class', () {
     // #######################################################################
 
-    group('class', () {
-      // .....................................................................
-      test('should throw if no class name is given"', () async {
-        await exec(['class']);
-        expect(messages.last, contains('Option name is mandatory'));
-      });
-
-      // .....................................................................
-      test('should throw if current directory is within lib/src directory',
-          () async {
-        setupDirectories();
-        Directory.current = tmpDir;
-
-        // Class file already exists
-        await exec(['class', '-n', 'MyClass']);
-        expect(
-          messages.last,
-          contains('Current directory is not within lib/src'),
-        );
-      });
-
-      // .....................................................................
-      test('should throw if no pubspec.yaml is found, (){}', () async {
-        setupDirectories(createPubSpec: false);
-
-        // Change into lib/src/a/b/c
-        Directory.current = targetDir;
-
-        await exec(['class', '-n', 'MyClass']);
-        expect(
-          messages.last,
-          contains('pubspec.yaml file found in current directory'),
-        );
-      });
-
-      // .....................................................................
-      test('should throw if no test direcotry is found, (){}', () async {
-        setupDirectories(createTestDir: false);
-
-        // Change into lib/src/a/b/c
-        Directory.current = targetDir;
-
-        await exec(['class', '-n', 'MyClass']);
-        expect(
-          messages.last,
-          contains('No test directory found in workspace'),
-        );
-      });
-
-      // .....................................................................
-      test('should throw if class already exists, (){}', () async {
-        setupDirectories();
-        // Change into lib/src/a/b/c
-        Directory.current = targetDir;
-
-        // Class file already exists
-        File(join(targetDir.path, 'my_class.dart'))
-          ..createSync()
-          ..writeAsStringSync('// MyClass');
-
-        await exec(['class', '-n', 'MyClass']);
-        expect(
-          messages.last,
-          contains('lib/src/a/b/c/my_class.dart already exists'),
-        );
-      });
-
-      // .....................................................................
-      for (final className in [
-        'my_class',
-        'My_class',
-        'MyClass',
-        'myClass',
-      ]) {
-        test('should create test and implementation file, (){}', () async {
-          setupDirectories();
-          // Change into lib/src/a/b/c
-          Directory.current = targetDir;
-
-          // Create class
-          await exec(['class', '-n', className]);
-
-          // ........
-          // Test file
-          final testFile =
-              File(join(workSpaceDir.path, 'test/a/b/c/my_class_test.dart'));
-          expect(testFile.existsSync(), isTrue);
-
-          // Header exists
-          final testFileContent = testFile.readAsStringSync();
-          final currentYear = DateTime.now().year;
-
-          expect(
-            testFileContent,
-            contains(
-              '// Copyright (c) 2019 - $currentYear Dr. Gabriel Gatzsche',
-            ),
-          );
-
-          // File under test is imported
-          expect(
-            testFileContent,
-            contains(
-              'final myClass = MyClass.example;',
-            ),
-          );
-
-          // File under test is imported
-          expect(
-            testFileContent,
-            contains(
-              "import 'package:aud_test/src/a/b/c/my_class.dart';",
-            ),
-          );
-
-          // ...................
-          // Implementation file
-          final srcFile = File(join(targetDir.path, 'my_class.dart'));
-          expect(srcFile.existsSync(), isTrue);
-
-          // Header exists
-          final srcFileContent = srcFile.readAsStringSync();
-          expect(
-            srcFileContent,
-            contains(
-              '// Copyright (c) 2019 - $currentYear Dr. Gabriel Gatzsche',
-            ),
-          );
-        });
-      }
+    // .....................................................................
+    test('should throw if no class name is given"', () async {
+      await exec(['class']);
+      expect(messages.last, contains('Option name is mandatory'));
     });
+
+    // .....................................................................
+    test('should throw if current directory is within lib/src directory',
+        () async {
+      setupDirectories();
+      Directory.current = tmpDir;
+
+      // Class file already exists
+      await exec(['class', '-n', 'MyClass']);
+      expect(
+        messages.last,
+        contains('Current directory is not within lib/src'),
+      );
+    });
+
+    // .....................................................................
+    test('should throw if no pubspec.yaml is found, (){}', () async {
+      setupDirectories(createPubSpec: false);
+
+      // Change into lib/src/a/b/c
+      Directory.current = targetDir;
+
+      await exec(['class', '-n', 'MyClass']);
+      expect(
+        messages.last,
+        contains('pubspec.yaml file found in current directory'),
+      );
+    });
+
+    // .....................................................................
+    test('should throw if no test direcotry is found, (){}', () async {
+      setupDirectories(createTestDir: false);
+
+      // Change into lib/src/a/b/c
+      Directory.current = targetDir;
+
+      await exec(['class', '-n', 'MyClass']);
+      expect(
+        messages.last,
+        contains('No test directory found in workspace'),
+      );
+    });
+
+    // .....................................................................
+    test('should throw if class already exists, (){}', () async {
+      setupDirectories();
+      // Change into lib/src/a/b/c
+      Directory.current = targetDir;
+
+      // Class file already exists
+      File(join(targetDir.path, 'my_class.dart'))
+        ..createSync()
+        ..writeAsStringSync('// MyClass');
+
+      await exec(['class', '-n', 'MyClass']);
+      expect(
+        messages.last,
+        contains('lib/src/a/b/c/my_class.dart already exists'),
+      );
+    });
+
+    // .....................................................................
+    for (final className in [
+      'my_class',
+      'My_class',
+      'MyClass',
+      'myClass',
+    ]) {
+      test('should create test and implementation file, (){}', () async {
+        setupDirectories();
+        // Change into lib/src/a/b/c
+        Directory.current = targetDir;
+
+        // Create class
+        await exec(['class', '-n', className]);
+
+        // ........
+        // Test file
+        final testFile =
+            File(join(workSpaceDir.path, 'test/a/b/c/my_class_test.dart'));
+        expect(testFile.existsSync(), isTrue);
+
+        // Header exists
+        final testFileContent = testFile.readAsStringSync();
+        final currentYear = DateTime.now().year;
+
+        expect(
+          testFileContent,
+          contains(
+            '// Copyright (c) 2019 - $currentYear Dr. Gabriel Gatzsche',
+          ),
+        );
+
+        // File under test is imported
+        expect(
+          testFileContent,
+          contains(
+            'final myClass = MyClass.example;',
+          ),
+        );
+
+        // File under test is imported
+        expect(
+          testFileContent,
+          contains(
+            "import 'package:aud_test/src/a/b/c/my_class.dart';",
+          ),
+        );
+
+        // ...................
+        // Implementation file
+        final srcFile = File(join(targetDir.path, 'my_class.dart'));
+        expect(srcFile.existsSync(), isTrue);
+
+        // Header exists
+        final srcFileContent = srcFile.readAsStringSync();
+        expect(
+          srcFileContent,
+          contains(
+            '// Copyright (c) 2019 - $currentYear Dr. Gabriel Gatzsche',
+          ),
+        );
+      });
+    }
   });
 }
