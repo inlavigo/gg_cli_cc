@@ -7,7 +7,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:gg_cli_cc/src/code/code.dart';
+import 'package:gg_cli_cc/gg_cli_cc.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
 
@@ -17,10 +17,16 @@ void main() {
   late Directory tmpDir;
   late Directory workSpaceDir;
   final messages = <String>[];
+  late Directory currentDirBefore;
 
   // ...........................................................................
   setUp(() {
+    currentDirBefore = Directory.current;
     messages.clear();
+  });
+
+  tearDown(() {
+    Directory.current = currentDirBefore;
   });
 
   // ...........................................................................
@@ -84,7 +90,6 @@ void main() {
         () async {
       setupDirectories();
       Directory.current = tmpDir;
-
       // Class file already exists
       await exec(['class', '-n', 'MyClass']);
       expect(
@@ -96,49 +101,40 @@ void main() {
     // .....................................................................
     test('should throw if no pubspec.yaml is found, (){}', () async {
       setupDirectories(createPubSpec: false);
-
       // Change into lib/src/a/b/c
       Directory.current = targetDir;
-
       await exec(['class', '-n', 'MyClass']);
       expect(
         messages.last,
         contains('pubspec.yaml file found in current directory'),
       );
     });
-
     // .....................................................................
     test('should throw if no test direcotry is found, (){}', () async {
       setupDirectories(createTestDir: false);
-
       // Change into lib/src/a/b/c
       Directory.current = targetDir;
-
       await exec(['class', '-n', 'MyClass']);
       expect(
         messages.last,
         contains('No test directory found in workspace'),
       );
     });
-
     // .....................................................................
     test('should throw if class already exists, (){}', () async {
       setupDirectories();
       // Change into lib/src/a/b/c
       Directory.current = targetDir;
-
       // Class file already exists
       File(join(targetDir.path, 'my_class.dart'))
         ..createSync()
         ..writeAsStringSync('// MyClass');
-
       await exec(['class', '-n', 'MyClass']);
       expect(
         messages.last,
         contains('lib/src/a/b/c/my_class.dart already exists'),
       );
     });
-
     // .....................................................................
     for (final className in [
       'my_class',
@@ -150,27 +146,22 @@ void main() {
         setupDirectories();
         // Change into lib/src/a/b/c
         Directory.current = targetDir;
-
         // Create class
         await exec(['class', '-n', className]);
-
         // ........
         // Test file
         final testFile =
             File(join(workSpaceDir.path, 'test/a/b/c/my_class_test.dart'));
         expect(testFile.existsSync(), isTrue);
-
         // Header exists
         final testFileContent = testFile.readAsStringSync();
         final currentYear = DateTime.now().year;
-
         expect(
           testFileContent,
           contains(
             '// Copyright (c) 2019 - $currentYear Dr. Gabriel Gatzsche',
           ),
         );
-
         // File under test is imported
         expect(
           testFileContent,
@@ -178,7 +169,6 @@ void main() {
             'final myClass = MyClass.example;',
           ),
         );
-
         // File under test is imported
         expect(
           testFileContent,
@@ -186,12 +176,10 @@ void main() {
             "import 'package:aud_test/src/a/b/c/my_class.dart';",
           ),
         );
-
         // ...................
         // Implementation file
         final srcFile = File(join(targetDir.path, 'my_class.dart'));
         expect(srcFile.existsSync(), isTrue);
-
         // Header exists
         final srcFileContent = srcFile.readAsStringSync();
         expect(

@@ -5,7 +5,7 @@
 // found in the LICENSE file in the root of this package.
 
 import 'package:args/command_runner.dart';
-import 'package:gg_cli_cc/src/code/code.dart';
+import 'package:gg_cli_cc/src/code/class/class.dart';
 
 /// Generates code
 class GenerateCode extends Command<dynamic> {
