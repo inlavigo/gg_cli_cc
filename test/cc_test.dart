@@ -26,7 +26,7 @@ void main() {
 
   // ...........................................................................
   Future<void> exec(List<String> args) async {
-    Zone.current.fork(specification: zoneSpecification).run(
+    await Zone.current.fork(specification: zoneSpecification).run(
           () async => generateCode(args),
         );
   }
