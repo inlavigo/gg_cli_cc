@@ -1,6 +1,6 @@
 name: gg_cli_cc
 description: Audanika Developer Command Line - Generate Code With Ease, e.g. Classes
-version: 1.0.3
+version: 1.0.4
 repository: https://github.com/inlavigo/gg_cli_cc
 
 environment:
