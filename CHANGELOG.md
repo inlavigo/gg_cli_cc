@@ -1,10 +1,11 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.4] - 2024-04-13
 
 ### Removed
 
 - dependency to gg\_install\_gg, remove ./check script
+- dependency pana
 
 ## [1.0.3] - 2024-04-09
 
@@ -27,6 +28,6 @@
 - Upgrade dependencies
 - Initial version.
 
-[Unreleased]: https://github.com/inlavigo/gg_cli_cc/compare/1.0.3...HEAD
+[1.0.4]: https://github.com/inlavigo/gg_cli_cc/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/inlavigo/gg_cli_cc/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/inlavigo/gg_cli_cc/tag/%tag
